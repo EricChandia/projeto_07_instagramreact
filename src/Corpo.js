@@ -1,3 +1,5 @@
+import React from "react";
+
 function Story(props){
     return(
     <div class="story">
@@ -26,9 +28,25 @@ function CarregarStories(){
 return stories;
 }
 
+
+
 function Post(props){
+  const [heart, setHeart] = React.useState("");
+  const [heartLiked, setHeartLiked] = React.useState("liked none");
+
+  function curtir(){
+    if(heart === "none"){
+      setHeart("md hydrated");
+      setHeartLiked("liked none");
+    }else{
+      setHeart("none");
+      setHeartLiked("liked md hydrated");
+    }
+  }
+  
+
     return(
-<div class="post">
+<div class="post" onClick={curtir}>
     <div class="topo">
       <div class="usuario">
         <img src={props.user_image} />
@@ -46,7 +64,8 @@ function Post(props){
     <div class="fundo">
       <div class="acoes">
         <div>
-          <ion-icon name="heart-outline"></ion-icon>
+          <ion-icon name="heart-outline" class={heart} onClick={curtir}></ion-icon>
+          <ion-icon name="heart-sharp" class={heartLiked} onClick={curtir}></ion-icon>
           <ion-icon name="chatbubble-outline"></ion-icon>
           <ion-icon name="paper-plane-outline"></ion-icon>
         </div>
@@ -114,6 +133,7 @@ export default function Corpo(){
     const stories = CarregarStories();
     const posts = CarregarPosts();
     const sugestoes = CarregarSugestoes();
+
 
     return(
         <div class="corpo">
